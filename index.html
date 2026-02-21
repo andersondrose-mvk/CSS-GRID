@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Inscrição Professor SC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+          
+  <header>
+  <nav>
+    <nav id="menu" class="menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#inscricao">Inscrições</a>
+      <a href="#contatos">Contatos</a>
+    </nav>
+  </header>
+  <main>
+    <section class="cabecalho">
+    <h1>Venha fazer parte do corpo docente!</h1><br>
+      <img 
+      src="img/professor.png"
+      alt="Ilustração de um professor"
+      title="Te esperamos!"
+      width="200"><br>
+   
+      <h2>Inscrições de Abertas</h2>
+    </section><br>
+
+    <hr>
+    <!-- <hr> no HTML serve para criar uma quebra temática ou separação visual entre parágrafos -->
+    <section id="inscricao">
+
+      <h2>Preencha Seu Formulário</h2>
+<div class="container">
+  <div class="coluna-esquerda">
+      <form action="" method="POST">
+        <label for="nome">Nome: </label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="email">E-mail: </label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="idade">Idade: </label><br>
+        <input 
+        type="number" 
+        id="idade" 
+        name="idade" 
+        min="18"
+        max="100" 
+        required
+        /><br><br>
+  
+        <!--type number regua numerica. min / max limites-->
+  
+        <fieldset>
+          <legend>Turnos Disponíveis:</legend>
+          <input type="checkbox" id="turnoManha" name="turnomanha" />
+          <label for="turnoManha">Turno da manhã</label><br>
+
+          <input type="checkbox" id="turnoTarde" name="turnotarde" />
+          <label for="turnoTarde">Turno da tarde</label><br>
+
+          <input type="checkbox" id="turnoNoite" name="turnonoite" />
+          <label for="turnoNoite">Turno da noite</label>
+        </fieldset>
+        <br>
+  </div>  
+        
+        <!--fieldset elemto usado em bloco logico p/ organizar e estilizacao  -->
+  
+  <div class="content">   
+        <label for="escolaridade">SUA ESCOLARIDADE</label><br>
+        <select nome="escolaridade" id="escolaridade" required> 
+           <option id="none" value="none">...</option> 
+            <option id="ensinoSuperiorCompleto" value="ensinosuperiorcompleto">Ensino Superior Completo</option>
+            <option id="cursandoMestrado" value="cursandoMestrado">Cursando Mestrado</option>
+            <option id="mestradoCompleto" value="mestradocompleto">Mestrado Completo</option>
+            <option id="cursandoDoutorado" value="cursandodoutorado">Cursando Doutorado</option>
+            <option id="doutoradoCompleto" value="doutoradocompleto">Doutorado Completo</option>
+     </select><br>
+
+    <label  for="materia">MATÉRIA QUE DESEJA LECIONAR:</label><br>    
+    <select nome="materia" id="materia" required>   
+            <option id="none2" value="none2">...</option>    
+            <option id="artes" value="artes">Artes</option>
+            <option id="biologia" value="biologia">Biologia</option>
+            <option id="ciencias" value="ciencias">Ciências</option>
+            <option id="geografia" value="geografia">Geografia</option>
+            <option id="historia" value="historia">História</option>
+            <option id="matematica" value="matematica">Matemática</option>
+            <option id="portugues" value="portugues">Português</option>   
+    </select><br>        
+    <section id="sobre">
+        <label for="sobre">Sobre Si:</label><br>
+        <textarea  
+        name="sobre" 
+        maxlength="200" 
+        cols="30" 
+        rows="5" 
+        required
+        placeholder="Conte um pouco sobre sua experiência..." 
+        ></textarea><br> 
+        <!--placeholder="Conte um pouco sobre sua experiência..."  msg na caixa auto delete -->
+
+        <small>Máximo de 200 caracteres permitidos.</small><br><br>
+
+        <input type="checkbox" id="inscricao" name="inscricao">
+        <label for="inscricao">Inscrever-se para novidades</label><br><br>
+
+        <input type="submit" value="Enviar Inscrição"> 
+    </section> 
+    </form>
+  </div>
+  <div class="coluna-direita">
+     <section id="contatos" class="coluna-direita">
+      <h2>Contatos</h2>
+        <img
+          src="img/eu.png"
+          alt="Foto de Anderson Dröse Martins"
+          width="150"
+        /><br>
+        <strong>Anderson Dröse Martins</strong>
+
+          <address>
+            E-mail:
+            <a href="mailto:maverickrsdrose@gmail.com">maverickrsdrose@gmail.com</a>
+            <br>
+            Telefone: <a href="tel:+5551986445680">51 986445680</a><br>
+            <br>
+            <br>
+          </address>
+      </section>
+  </div>
+</div>
+</main>
+        <footer id="rodape" class="rodape">
+          <hr>
+          <p>Criado por Anderson Dröse - MVKgames</p>
+          <p>&copy; 2024 Direitos Reservados a Anderson Dröse Martins</p>
+          <!-- &copy; usado para add simbolo copyright -->
+        </footer>
+  </body>
+</html>
