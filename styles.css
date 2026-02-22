@@ -1,21 +1,36 @@
 .container{
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
+   justify-items: center; 
     
 }
-
 .cabecalho{
-    
+    justify-items: center; 
+    justify-content: center;
 }
-.menu{
+.img-cab{
+  justify-items: center; 
+}
+#menu {
+  position: sticky;
+    position: -webkit-sticky;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+    background-color: aqua;
     
+    top: 0;
+    border: 1px solid black;
+    font-size: 20px;
+    height: 100px;
+    justify-items: center; 
+    margin: 10;
 }
 
 .coluna-esquerda{
     
 }
 .content{
-
+  
 }
 
 .coluna-direita{
@@ -26,7 +41,7 @@
 } 
 fieldset {
   background-color: #eeeeee;
-  border-radius: 30px;
+  
 }
 
 legend {
@@ -39,6 +54,7 @@ input {
   margin: 5px;
   margin-right: 5px;
 }
+
 </style>
 </head>
 <body>
