@@ -10,7 +10,7 @@
   <body>
           
 <header>
-<main id="menu" class="menu-container">
+<main id="container-menu" class="menu-container">
   <nav id="menu" class="menu-css">
     <div id="box1" class="box-menu"> <a href="#inicio">Inicio</a> </div>
     <div id="box2" class="box-menu"> <a href="#inscricao">Inscrições</a> </div>
@@ -37,7 +37,7 @@
 
     <hr>
     <!-- <hr> no HTML serve para criar uma quebra temática ou separação visual entre parágrafos -->
-    <section id="inscricao">
+    <section id="sec-inscricao">
 
       <h2>Preencha Seu Formulário</h2>
 <div class="container">
@@ -79,7 +79,7 @@
   
   <div class="content">   
         <label for="escolaridade">SUA ESCOLARIDADE</label><br>
-        <select nome="escolaridade" id="escolaridade" required> 
+        <select name="escolaridade" id="escolaridade" required> 
            <option id="none" value="none">...</option> 
             <option id="ensinoSuperiorCompleto" value="ensinosuperiorcompleto">Ensino Superior Completo</option>
             <option id="cursandoMestrado" value="cursandoMestrado">Cursando Mestrado</option>
@@ -89,7 +89,7 @@
      </select><br>
 
     <label  for="materia">MATÉRIA QUE DESEJA LECIONAR:</label><br>    
-    <select nome="materia" id="materia" required>   
+    <select name="materia" id="materia" required>   
             <option id="none2" value="none2">...</option>    
             <option id="artes" value="artes">Artes</option>
             <option id="biologia" value="biologia">Biologia</option>
@@ -113,7 +113,7 @@
 
         <small>Máximo de 200 caracteres permitidos.</small><br><br>
 
-        <input type="checkbox" id="inscricao" name="inscricao">
+        <input type="checkbox" id="check-novidades" name="inscricao">
         <label for="inscricao">Inscrever-se para novidades</label><br><br>
 
         <input type="submit" value="Enviar Inscrição"> 
@@ -148,5 +148,40 @@
           <p>&copy; 2024 Direitos Reservados a Anderson Dröse Martins</p>
           <!-- &copy; usado para add simbolo copyright -->
         </footer>
+    <script>
+         // 1. Selecionamos os elementos que queremos "ouvir" ou modificar
+const formulario = document.querySelector('form');
+const inputNome = document.getElementById('nome');
+const selectMateria = document.getElementById('materia');
+const colunaEsquerda = document.querySelector('.coluna-esquerda');
+
+// recebedor do submit
+formulario.addEventListener('submit', function(event) {
+    
+    
+    event.preventDefault();
+
+    // Validação Simples
+    //  Verifica se o valor do select é o inicial ("none2")
+    if (selectMateria.value === "none2") {
+        alert("Ops! Por favor, escolha uma matéria para lecionar.");
+        selectMateria.style.borderColor = "red"; // Destaca o erro visualmente
+        return; // Para a execução aqui
+    }
+
+    // Coleta de Dados
+    const nomeProfessor = inputNome.value;
+    const materiaNome = selectMateria.options[selectMateria.selectedIndex].text;
+    colunaEsquerda.innerHTML = `
+        <div style="padding: 20px; background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;">
+            <h3 style="color: #155724;">✅ Inscrição Enviada!</h3>
+            <p>Parabéns, <strong>${nomeProfessor}</strong>!</p>
+            <p>Seu interesse em lecionar <strong>${materiaNome}</strong> foi registrado.</p>
+            <hr>
+            <button onclick="window.location.reload()" style="cursor:pointer; padding: 5px 10px;">Fazer outra inscrição</button>
+        </div>
+    `;
+});
+</script>
   </body>
 </html>
