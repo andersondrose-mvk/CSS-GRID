@@ -2,19 +2,48 @@
 const formulario = document.querySelector("form");
 const areaFeedback = document.querySelector(".coluna-esquerda");
 
-// OUVINTE: Envio do Formulário
+// OUVINTE: Envio do Formulário (Apenas UM evento de submit)
 formulario.addEventListener("submit", async function (event) {
-  // Impede o recarregamento padrão para processarmos via Fetch (envio em segundo plano)
   event.preventDefault();
 
-  // Captura todos os dados do formulário de uma vez
+  // 1. CAPTURA DE ELEMENTOS E VALORES
+  const botaoEnvio = event.submitter;
+  const nomeRaw = document.getElementById("nome").value;
+  const sobreRaw = document.querySelector('textarea[name="sobre"]').value;
+
+  // Seleciona checkboxes de turno marcados (HTML não valida isso sozinho)
+  const turnosMarcados = document.querySelectorAll(
+    'input[name^="turno"]:checked'
+  );
+
+  // 2. SANITIZAÇÃO (Segurança contra XSS - remove tags HTML)
+  const nomeUsuario = nomeRaw.replace(/<[^>]*>?/gm, "").trim();
+  const sobreSanitizado = sobreRaw.replace(/<[^>]*>?/gm, "").trim();
+
+  // 3. VALIDAÇÕES MANUAIS
+
+  // Valida Turnos: Se a lista de marcados estiver vazia, interrompe
+  if (turnosMarcados.length === 0) {
+    alert("Por favor, selecione ao menos um turno disponível.");
+    return;
+  }
+
+  // Valida Sobre Si: Mínimo de 10 caracteres reais
+  if (sobreSanitizado.length < 10) {
+    alert(
+      "Por favor, descreva a sua experiência com pelo menos 10 caracteres."
+    );
+    return;
+  }
+
+  // 4. PREPARAÇÃO PARA ENVIO
+  botaoEnvio.disabled = true;
+  botaoEnvio.value = "A enviar...";
+
   const formData = new FormData(event.target);
 
-  // Pegamos o nome apenas para personalizar a mensagem de sucesso na tela
-  const nomeUsuario = document.getElementById("nome").value;
-
   try {
-    // 2. ENVIO REAL: Envia para a URL do Formspree definida no 'action' do seu HTML
+    // 5. ENVIO REAL PARA O FORMSPREE
     const response = await fetch(event.target.action, {
       method: "POST",
       body: formData,
@@ -22,22 +51,24 @@ formulario.addEventListener("submit", async function (event) {
     });
 
     if (response.ok) {
-      // 3. FEEDBACK: Se o envio foi sucesso, mostra a mensagem verde na tela
+      // 6. FEEDBACK DE SUCESSO
       areaFeedback.innerHTML = `
         <div style="background-color: #d4edda; color: #155724; padding: 20px; border-radius: 8px; border: 1px solid #c3e6cb;">
             <h2>✅ Inscrição Enviada!</h2>
-            <p>Olá, <strong>${nomeUsuario}</strong>. Seus dados foram enviados com sucesso.</p>
-            <p>Verifique seu e-mail para confirmações futuras.</p>
+            <p>Olá, <strong>${nomeUsuario}</strong>. Os seus dados foram enviados com sucesso.</p>
+            <p>Verifique o seu e-mail para confirmações futuras.</p>
             <hr>
             <button onclick="window.location.reload()" style="margin-top:10px; cursor:pointer; padding: 5px 10px;">Fazer outra inscrição</button>
         </div>
       `;
-      formulario.reset(); // Limpa o formulário
+      formulario.reset();
     } else {
-      alert("Erro ao enviar: Problema com o servidor do Formspree.");
+      throw new Error("Erro no servidor");
     }
   } catch (error) {
-    alert("Erro de conexão: Verifique se você está conectado à internet.");
+    alert("Ops! Houve um erro de ligação. Tente novamente.");
+    botaoEnvio.disabled = false;
+    botaoEnvio.value = "Enviar Inscrição";
   }
 });
 
@@ -46,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnTheme = document.getElementById("theme-toggle");
   const body = document.body;
 
-  // 1. Aplica o tema salvo logo no início (se existir)
   if (localStorage.getItem("theme") === "dark") {
     body.classList.add("dark-mode");
     if (btnTheme) {
@@ -55,15 +85,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // 2. Lógica de clique para alternar o tema
   if (btnTheme) {
     btnTheme.addEventListener("click", () => {
       const isDark = body.classList.toggle("dark-mode");
-
-      // Salva a escolha do usuário no navegador
       localStorage.setItem("theme", isDark ? "dark" : "light");
-
-      // Atualiza o texto do botão e a acessibilidade
       btnTheme.textContent = isDark ? "Modo Claro" : "Modo Escuro";
       btnTheme.setAttribute("aria-pressed", isDark ? "true" : "false");
     });
