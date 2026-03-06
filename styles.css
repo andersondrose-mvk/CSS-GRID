@@ -1,59 +1,123 @@
-.container{
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-   justify-items: center; 
-    
+#container-menu {
+  display: grid;
+  grid-template-columns: 5fr 1fr;
 }
-.cabecalho{
-    justify-items: center; 
-    justify-content: center;
-}
-.img-cab{
-  justify-items: center; 
+.container {
+  display: grid;
+  /* Auto-ajuste: cria colunas de no mínimo 250px. Se não couber, pula linha */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  justify-items: center;
+  padding: 10px;
 }
 .menu-css {
+  /* Fixa o menu no topo ao rolar a página */
+  position: -webkit-sticky;
   position: sticky;
-    position: -webkit-sticky;
+  top: 0;
+  z-index: 1000; /* Garante que fique acima do conteúdo */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-    background-color: aqua;
-    top: 0;
-    border: 1px solid black;
-    font-size: 20px;
-    height: 50px;
-    justify-items: center; 
-    margin: 10;
+  background-color: aqua;
+  border: 1px solid black;
+  font-size: 20px;
+  height: 50px;
+  justify-items: center;
+  align-items: center; /* Centraliza o texto verticalmente */
+  margin: 10px; /* Adicionado 'px' */
 }
 
-.coluna-esquerda{
-    
+/* Outros estilos fixos */
+.img-cab {
+  justify-items: center;
 }
-.content{
-  
+img {
+  max-width: 100%;
+  height: auto;
 }
-
-.coluna-direita{
-
+.cabecalho {
+  justify-items: center;
+  justify-content: center;
 }
-.rodape{
-
-} 
 fieldset {
   background-color: #eeeeee;
-  
 }
-
 legend {
   background-color: gray;
   color: white;
   padding: 5px 10px;
 }
-
 input {
   margin: 5px;
   margin-right: 5px;
 }
+#theme-toggle {
+  border: 1px solid black;
+  font-size: 20px;
+  height: 50px;
+  margin: 10px; /* Adicionado 'px' */
+  cursor: pointer;
+}
 
-</style>
-</head>
-<body>
+/* --- ADAPTAÇÃO PARA TELAS PEQUENAS (Mobile) --- */
+@media (max-width: 600px) {
+  #container-menu {
+    grid-template-columns: 1fr; /* Menu e Botão de Tema empilhados */
+  }
+
+  .menu-css {
+    grid-template-columns: 1fr; /* Itens do menu um abaixo do outro */
+    height: auto; /* Altura cresce conforme os itens */
+    padding: 10px 0;
+  }
+
+  .container {
+    grid-template-columns: 1fr; /* Garante uma coluna única em telas muito estreitas */
+  }
+}
+
+/* --- CORES DO MODO ESCURO --- */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode fieldset {
+  background-color: #1e1e1e;
+  border-color: #444;
+}
+
+body.dark-mode .menu-css {
+  background-color: #008b8b; /* Um tom de aqua mais escuro */
+  border-color: #ffffff;
+}
+
+body.dark-mode legend {
+  background-color: #333;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+}
+/* Isso precisa estar no seu arquivo CSS para as cores mudarem */
+body.dark-mode {
+  background-color: #121212 !important;
+  color: white !important;
+}
+
+body.dark-mode .menu-css {
+  background-color: #008b8b;
+  border-color: white;
+}
+
+/* Garante que o texto dos labels e títulos fique branco no modo escuro */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode label,
+body.dark-mode strong {
+  color: white;
+}
